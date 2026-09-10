@@ -77,7 +77,11 @@ int parseInt( const std::string & s, int def )
 int main( int argc, char ** argv )
 {
     // Headless CLI: force the offscreen QPA platform before the app is created.
+#ifdef _WIN32
+    _putenv_s( "QT_QPA_PLATFORM", "offscreen" );
+#else
     setenv( "QT_QPA_PLATFORM", "offscreen", 1 );
+#endif
     QGuiApplication app( argc, argv );
 
     const fh2poster::Args args = fh2poster::parseArgs( argc, argv );
