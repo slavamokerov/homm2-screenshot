@@ -1,0 +1,51 @@
+// Minimal QtGlobal-compatible subset for the headless WASM renderer.
+// Provides just the macroes and ARGB typedefs that the shared render code
+// (fh2resources + fh2poster) references. Compiled only in the WASM build; the
+// native CLI keeps real Qt.
+#pragma once
+
+#include <cstdint>
+
+#define QT_VERSION_MAJOR 6
+#define QT_VERSION_MINOR 11
+#define QT_VERSION_PATCH 1
+#define QT_VERSION 0x060B01
+
+#define QT_VERSION_CHECK(maj, min, pat) ((maj) << 16 | (min) << 8 | (pat))
+
+typedef uint32_t QRgb;
+typedef QRgb QRgba;
+typedef double qreal;
+
+// Common Qt scalar typedefs used across the render code.
+typedef unsigned int uint;
+typedef unsigned char uchar;
+typedef unsigned short ushort;
+typedef signed char schar;
+typedef int qint32;
+typedef unsigned int quint32;
+typedef short qint16;
+typedef unsigned short quint16;
+typedef long long qint64;
+typedef unsigned long long quint64;
+typedef long long qlonglong;
+typedef unsigned long long qulonglong;
+typedef int qint8;
+typedef unsigned char quint8;
+
+inline int qRed( QRgb c ) { return ( c >> 16 ) & 0xFF; }
+inline int qGreen( QRgb c ) { return ( c >> 8 ) & 0xFF; }
+inline int qBlue( QRgb c ) { return c & 0xFF; }
+inline int qAlpha( QRgb c ) { return ( c >> 24 ) & 0xFF; }
+
+inline int qRound( double d ) { return ( int )( d + ( d >= 0 ? 0.5 : -0.5 ) ); }
+
+// ARGB32 word: 0xAARRGGBB.
+inline QRgb qRgba( int r, int g, int b, int a )
+{
+    return QRgb( ( ( uint32_t )a << 24 ) | ( ( uint32_t )r << 16 ) | ( ( uint32_t )g << 8 ) | ( uint32_t )b );
+}
+inline QRgb qRgb( int r, int g, int b )
+{
+    return qRgba( r, g, b, 255 );
+}

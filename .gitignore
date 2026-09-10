@@ -1,0 +1,28 @@
+# Build output
+/build/
+
+# Large generated artifacts
+/poster.png
+/web/deploy/
+
+# Local test screenshots and saves (test fixtures stay local)
+/tests/test-scr/
+*.sav
+*.savc
+*.savm
+*.savh
+*.GM1
+*.GMC
+*.GXC
+*.GM2
+*.GX1
+*.GX2
+
+# Internal working notes (kept local, not part of the published repository)
+/AGENTS.md
+/SESSION_NOTES.md
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*~
