@@ -94,9 +94,11 @@ sizes (the height depends on how many kingdoms and cards the save has):
 | 72×72 | ×1 | 196×288 mm | A4 |
 | 108×108 | ×1 | 294×367 mm | A3 |
 | 144×144 | ×1 | 391×466 mm | A2 |
+| any | ×2 | taller than 1189 mm | custom — over A0 |
 
 Print at 100% (disable “fit to page”). On the web page the “Print / Save as
-PDF” button opens the print dialog with the poster at its exact size.
+PDF” button opens the print dialog with the poster at its exact size, centered
+on the sheet; the hint next to the button names the recommended paper format.
 
 ## Where the game data is
 

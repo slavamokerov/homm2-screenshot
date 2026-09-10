@@ -42,6 +42,7 @@
 <script src="fh2poster.js"></script>
 <link rel="stylesheet" href="98.css">
 <link rel="stylesheet" href="style.css">
+<style id="printPage"></style>
 </head>
 <body>
 <div class="window app-window">
@@ -57,32 +58,39 @@
     <p class="sub">Builds a poster PNG from a Heroes of Might and Magic II save: the adventure map (with the fog of war of one player or without it), castles, hero cards and a row of info panels — minimap, resources, events, rumors, the obelisk puzzle and the win/loss conditions. fheroes2 saves are supported as well. Everything runs in the browser: the save and the game data are read from your disk.</p>
 
     <section>
-      <button id="pickFolder" type="button">1. Pick your game folder (HEROES2.AGG + saves)</button>
+      <div class="row">
+        <span class="step">1. Pick your game folder</span>
+        <button id="pickFolder" type="button">HEROES2.AGG + saves</button>
+        <span id="aggName" class="file"></span>
+      </div>
       <input id="aggInput" type="file" webkitdirectory directory multiple hidden>
-      <div id="aggName" class="file"></div>
     </section>
 
     <section>
-      <label for="saveSelect">2. Pick a save</label>
-      <select id="saveSelect" disabled>
-        <option value="-1">saves will appear here</option>
-      </select>
+      <div class="row">
+        <label class="step" for="saveSelect">2. Pick a save</label>
+        <select id="saveSelect" disabled>
+          <option value="-1">saves will appear here</option>
+        </select>
+      </div>
     </section>
 
-    <section class="field-row">
-      <label for="fog">Fog:</label>
-      <select id="fog">
-        <option value="none" selected>no fog</option>
-        <option value="auto">auto (player)</option>
-      </select>
-      <label for="scale">Scale:</label>
-      <select id="scale">
-        <option value="1">×1</option>
-        <option value="2" selected>×2</option>
-      </select>
+    <section>
+      <div class="row">
+        <span class="step">3. Choose fog</span>
+        <select id="fog">
+          <option value="none" selected>no fog</option>
+          <option value="auto">auto (player)</option>
+        </select>
+        <span class="step">and scale</span>
+        <select id="scale">
+          <option value="1">×1</option>
+          <option value="2" selected>×2</option>
+        </select>
+      </div>
     </section>
 
-    <button id="render" disabled>Build poster</button>
+    <button id="render" disabled>BUILD POSTER</button>
     <div id="status" class="status"></div>
 
     <div id="result" hidden>
@@ -93,6 +101,7 @@
       <div class="actions">
         <a id="download" download="poster.png" href="#">Download PNG (300 DPI)</a>
         <button id="print" type="button">Print / Save as PDF</button>
+        <span id="paperHint" class="hint"></span>
       </div>
       <p class="hint">Print at 100% (disable “fit to page”). The PNG stores 300 DPI, so the physical size is exact.</p>
     </div>
@@ -129,6 +138,7 @@
             <tr><td>72×72</td><td>×1</td><td>196×288 mm</td><td>A4</td></tr>
             <tr><td>108×108</td><td>×1</td><td>294×367 mm</td><td>A3</td></tr>
             <tr><td>144×144</td><td>×1</td><td>391×466 mm</td><td>A2</td></tr>
+            <tr><td>any</td><td>×2</td><td>taller than 1189 mm</td><td>custom — over A0</td></tr>
           </tbody>
         </table>
       </div>
@@ -149,6 +159,18 @@
   let agg = null, aggX = null;
   let module;
   let lastPxW = 0;
+  let lastPxH = 0;
+  let lastPaper = null;
+
+  // ISO 216 portrait sizes in mm, smallest first.
+  const PAPER = [
+    ['A5', 148, 210], ['A4', 210, 297], ['A3', 297, 420],
+    ['A2', 420, 594], ['A1', 594, 841], ['A0', 841, 1189]
+  ];
+
+  function paperFor(wmm, hmm) {
+    return PAPER.find(p => wmm <= p[1] + 0.5 && hmm <= p[2] + 0.5) || null;
+  }
   const SAVE_EXT = ['.sav', '.gm1', '.gmc', '.gxc', '.gx1', '.gx2', '.savc', '.savm', '.savh'];
 
   const isSave = name => {
@@ -172,6 +194,7 @@
       sel.innerHTML = '<option value="-1">no saves found</option>';
       sel.disabled = true;
       saveFiles = null;
+      sel.classList.remove('has-selection');
       refreshKingdoms();
       return;
     }
@@ -183,6 +206,7 @@
     });
     sel.disabled = false;
     saveFiles = saveList[0].file;
+    sel.classList.add('has-selection');
     refreshKingdoms();
   }
 
@@ -212,6 +236,7 @@
   $('saveSelect').addEventListener('change', e => {
     const i = parseInt(e.target.value, 10);
     saveFiles = (i >= 0 && i < saveList.length) ? saveList[i].file : null;
+    e.target.classList.toggle('has-selection', i >= 0 && i < saveList.length);
     refreshKingdoms();
     update();
   });
@@ -265,6 +290,10 @@
       $('preview').src = url;
       $('download').href = url;
       lastPxW = obj.pxW;
+      lastPxH = obj.pxH;
+      lastPaper = paperFor(obj.pxW / 300 * 25.4, obj.pxH / 300 * 25.4);
+      $('paperHint').textContent = (lastPaper ? lastPaper[0] : 'custom (over A0)') +
+        ' · portrait · 100% · margins None · no headers/footers';
       $('info').textContent = `${obj.name || 'map'} · ${obj.width}×${obj.height} · day ${obj.day}, week ${obj.week}, month ${obj.month}` +
                               ` · ${obj.castles} castles, ${obj.heroes} heroes · ${obj.pxW}×${obj.pxH} px (${(obj.pxW/300*25.4).toFixed(0)}×${(obj.pxH/300*25.4).toFixed(0)} mm at 300 DPI) · ${(obj.png/1048576).toFixed(1)} MB`;
       $('result').hidden = false;
@@ -275,12 +304,25 @@
   }
   $('render').addEventListener('click', render);
 
+  function updatePrintPage() {
+    if (!(lastPxW > 0)) return;
+    const wmm = lastPxW / 300 * 25.4, hmm = lastPxH / 300 * 25.4;
+    const round = v => Math.round(v * 10) / 10;
+    // Chrome knows A5/A4/A3 by name; bigger sheets are only accepted as mm.
+    const named = lastPaper && ['A5', 'A4', 'A3'].includes(lastPaper[0]);
+    const sheetW = lastPaper ? lastPaper[1] : round(wmm + 0.2);
+    const sheetH = lastPaper ? lastPaper[2] : round(hmm + 0.2);
+    const sheet = named ? `${lastPaper[0]} portrait` : `${sheetW}mm ${sheetH}mm`;
+    // The poster is sized for print only, so the on-screen preview never changes.
+    $('printPage').textContent =
+      `@page { size: ${sheet}; margin: 0; }\n` +
+      `@media print { #preview { width: ${round(wmm)}mm; height: auto; } }`;
+  }
+
   $('print').addEventListener('click', () => {
-    if (lastPxW > 0)
-      $('preview').style.width = (lastPxW / 300 * 25.4).toFixed(1) + 'mm';
+    updatePrintPage();
     window.print();
   });
-  window.addEventListener('afterprint', () => { $('preview').style.width = ''; });
 </script>
 </body>
 </html>
