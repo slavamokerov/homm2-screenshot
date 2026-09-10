@@ -1,0 +1,77 @@
+name: Bug report
+description: Report a problem with the poster generator
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The more detail you give, the faster the problem
+        can be reproduced.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Release tag, or "built from main @ <commit>"
+    validations:
+      required: true
+  - type: dropdown
+    id: used
+    attributes:
+      label: Version used
+      options:
+        - Web (browser)
+        - Desktop CLI
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: e.g. macOS arm64, Windows 11, Linux x64
+    validations:
+      required: true
+  - type: dropdown
+    id: savetype
+    attributes:
+      label: Save type
+      options:
+        - fheroes2 save (.sav/.savc/.savm/.savh)
+        - HoMM2 save (.GM1/.GMC/.GXC)
+    validations:
+      required: true
+  - type: input
+    id: map
+    attributes:
+      label: Map size
+      placeholder: e.g. 36x36, 144x144
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Pick the folder...
+        2. Pick the save...
+        3. See the problem...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Attachments
+      description: The save file is the single most useful thing for reproducing a rendering bug. Screenshots are welcome too.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Which fog and scale options were used? Does the save open in fheroes2 or the original game?

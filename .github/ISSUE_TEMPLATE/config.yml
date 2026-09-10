@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Security issues (private)
+    url: https://github.com/slavamokerov/homm2-screenshot/security/advisories/new
+    about: Report something that could be exploited (malformed-save crashes, memory bugs) privately.
+  - name: Where the game data is
+    url: https://github.com/slavamokerov/homm2-screenshot#readme
+    about: Folder examples for GOG / CD / DOSBox / fheroes2 installs, and how to build.
