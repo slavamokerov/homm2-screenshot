@@ -63,8 +63,10 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          # vcpkg zlib is dynamic: put its DLL next to the test binaries.
+          # aqt/vcpkg ship dynamic libraries: put the DLLs next to the binaries,
+          # otherwise the Qt-linked test executables wait on a missing-DLL dialog.
           if [ "${{ matrix.qt }}" = "aqt" ]; then
+            cp "${{ runner.tool_cache }}/Qt/6.8.2/msvc2022_64/bin/"*.dll build/Release/
             cp "$VCPKG_INSTALLATION_ROOT/installed/x64-windows/bin/"*.dll build/Release/
           fi
           ctest --test-dir build -C Release --output-on-failure --timeout 120
