@@ -70,7 +70,7 @@ em++ -O2 -std=c++17 "${INC[@]}" \
 
 # Static site files.
 cp "$ROOT/web/index.html" "$ROOT/web/style.css" "$OUT/"
-cp "$ROOT/web/98.css" "$ROOT/web/LICENSE-98.css" "$ROOT/web/ms_sans_serif.woff2" "$ROOT/web/ms_sans_serif_bold.woff2" "$OUT/"
+cp "$ROOT/web/98.css" "$ROOT/web/LICENSE-98.css" "$ROOT/web/LICENSE-ms-sans-serif.txt" "$ROOT/web/ms_sans_serif.woff2" "$ROOT/web/ms_sans_serif_bold.woff2" "$OUT/"
 if [ -f "$ROOT/web/robots.txt" ]; then cp "$ROOT/web/robots.txt" "$OUT/"; fi
 if [ -f "$ROOT/web/sitemap.xml" ]; then cp "$ROOT/web/sitemap.xml" "$OUT/"; fi
 if [ -f "$ROOT/web/icon.png" ]; then cp "$ROOT/web/icon.png" "$OUT/"; fi

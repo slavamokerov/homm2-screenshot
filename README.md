@@ -123,6 +123,11 @@ Parts of the renderer are ports of [fheroes2](https://github.com/ihhub/fheroes2)
 (GPL-2.0): the ADVBORD interface frame, the fog-of-war tiles, the castle and
 hero screens. The mini-Qt used by the web build lives in `libs/rastercompat/`.
 
+The web page is styled with [98.css](https://github.com/jdan/98.css) by Jordan
+Scales (MIT) and the “Pixelated MS Sans Serif” font by “lou”
+([Fontstruct](https://fontstruct.com/fontstructions/show/1384746), CC BY-SA 3.0);
+see `web/LICENSE-98.css` and `web/LICENSE-ms-sans-serif.txt`.
+
 ## License
 
 GPL-2.0 — see [LICENSE](LICENSE). Heroes of Might and Magic II is a trademark

@@ -1,0 +1,57 @@
+"Pixelated MS Sans Serif" font files (ms_sans_serif.woff2, ms_sans_serif_bold.woff2)
+========================================================================
+
+The font files in web/ are the converted WOFF2 versions distributed with
+98.css (https://github.com/jdan/98.css), originally taken from:
+
+  MS Sans Serif:      https://fontstruct.com/fontstructions/show/1384746
+  MS Sans Serif Bold: https://fontstruct.com/fontstructions/show/1384862
+
+Both FontStructions are by "lou" and are licensed under the Creative
+Commons Attribution Share Alike 3.0 license:
+
+------------------------------------------------------------------------
+MS Sans Serif (regular)
+------------------------------------------------------------------------
+The FontStruction “MS Sans Serif”
+(https://fontstruct.com/fontstructions/show/1384746) by “lou” is licensed
+under a Creative Commons Attribution Share Alike license
+(http://creativecommons.org/licenses/by-sa/3.0/).
+
+------------------------------------------------------------------------
+MS Sans Serif Bold
+------------------------------------------------------------------------
+The FontStruction “MS Sans Serif Bold”
+(https://fontstruct.com/fontstructions/show/1384862) by “lou” is licensed
+under a Creative Commons Attribution Share Alike license
+(http://creativecommons.org/licenses/by-sa/3.0/).
+
+------------------------------------------------------------------------
+Fontstruct notes (regular)
+------------------------------------------------------------------------
+The font file in this archive was created using Fontstruct the free, online
+font-building tool.
+This font was created by “lou”.
+This font has a homepage where this archive and other versions may be found:
+https://fontstruct.com/fontstructions/show/1384746
+
+Try Fontstruct at http://fontstruct.com
+It’s easy and it’s fun.
+
+NOTE FOR FLASH USERS: Fontstruct fonts (fontstructions) are optimized for Flash.
+If the font in this archive is a pixel font, it is best displayed at a font-size
+of 11.
+
+Fontstruct is sponsored by FontShop.
+Visit them at https://fontshop.com
+FontShop is the original independent font retailer. We’ve been around since
+the dawn of digital type. Whether you need the right font or need to create the
+right font from scratch, let our 26 years of experience work for you.
+
+Fontstruct is copyright ©2017 Rob Meek
+
+LEGAL NOTICE:
+In using this font you must comply with the licensing terms described in the
+file “license.txt” included with this archive.
+If you redistribute the font file in this archive, it must be accompanied by all
+the other files from this archive, including this one.
