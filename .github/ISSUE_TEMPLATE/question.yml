@@ -1,0 +1,41 @@
+name: Question
+description: Ask a question about the poster generator or the game data
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for asking. Before posting, a quick look at the README
+        (the "Where the game data is" and "Printing" sections) often answers it.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      placeholder: e.g. "Which folder should I pick if the game is installed through DOSBox?"
+    validations:
+      required: true
+  - type: dropdown
+    id: used
+    attributes:
+      label: What you're using
+      options:
+        - Web (browser)
+        - Desktop CLI
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS and version
+      placeholder: e.g. macOS arm64, Windows 11, Linux x64; release or built from main @ <commit>
+  - type: textarea
+    id: tried
+    attributes:
+      label: What you've already tried
+      description: Anything you checked — README, existing issues, a different fog/scale option.
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Attachments
+      description: Optional: a save file or screenshot that shows the setup you're asking about.

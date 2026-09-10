@@ -40,96 +40,106 @@
 }
 </script>
 <script src="fh2poster.js"></script>
+<link rel="stylesheet" href="98.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="card">
-  <h1>homm2-screenshot</h1>
-  <p class="sub">Builds a poster PNG from a Heroes of Might and Magic II save: the adventure map (with the fog of war of one player or without it), castles, hero cards and a row of info panels — minimap, resources, events, rumors, the obelisk puzzle and the win/loss conditions. fheroes2 saves are supported as well. Everything runs in the browser: the save and the game data are read from your disk.</p>
+<div class="window app-window">
+  <div class="title-bar">
+    <div class="title-bar-text">homm2-screenshot</div>
+    <div class="title-bar-controls" aria-hidden="true">
+      <button aria-label="Minimize" disabled></button>
+      <button aria-label="Maximize" disabled></button>
+      <button aria-label="Close" disabled></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <p class="sub">Builds a poster PNG from a Heroes of Might and Magic II save: the adventure map (with the fog of war of one player or without it), castles, hero cards and a row of info panels — minimap, resources, events, rumors, the obelisk puzzle and the win/loss conditions. fheroes2 saves are supported as well. Everything runs in the browser: the save and the game data are read from your disk.</p>
 
-  <section>
-    <label class="btn" for="aggInput">1. Pick your game folder <span>(HEROES2.AGG + saves)</span></label>
-    <input id="aggInput" type="file" webkitdirectory directory multiple hidden>
-    <div id="aggName" class="file"></div>
-  </section>
+    <section>
+      <button id="pickFolder" type="button">1. Pick your game folder (HEROES2.AGG + saves)</button>
+      <input id="aggInput" type="file" webkitdirectory directory multiple hidden>
+      <div id="aggName" class="file"></div>
+    </section>
 
-  <section>
-    <label class="caption" for="saveSelect">2. Pick a save</label>
-    <select id="saveSelect" disabled>
-      <option value="-1">saves will appear here</option>
-    </select>
-  </section>
+    <section>
+      <label for="saveSelect">2. Pick a save</label>
+      <select id="saveSelect" disabled>
+        <option value="-1">saves will appear here</option>
+      </select>
+    </section>
 
-  <section class="opts">
-    <label>Fog
+    <section class="field-row">
+      <label for="fog">Fog:</label>
       <select id="fog">
         <option value="none" selected>no fog</option>
         <option value="auto">auto (player)</option>
       </select>
-    </label>
-    <label>Scale
+      <label for="scale">Scale:</label>
       <select id="scale">
         <option value="1">×1</option>
         <option value="2" selected>×2</option>
       </select>
-    </label>
-  </section>
+    </section>
 
-  <button id="render" class="primary" disabled>Build poster</button>
-  <div id="status" class="status"></div>
+    <button id="render" disabled>Build poster</button>
+    <div id="status" class="status"></div>
 
-  <div id="result" hidden>
-    <div id="info" class="info"></div>
-    <div id="posterBox">
-      <img id="preview" alt="Poster built from the selected save">
+    <div id="result" hidden>
+      <div id="info" class="info"></div>
+      <div id="posterBox" class="sunken-panel">
+        <img id="preview" alt="Poster built from the selected save">
+      </div>
+      <div class="actions">
+        <a id="download" download="poster.png" href="#">Download PNG (300 DPI)</a>
+        <button id="print" type="button">Print / Save as PDF</button>
+      </div>
+      <p class="hint">Print at 100% (disable “fit to page”). The PNG stores 300 DPI, so the physical size is exact.</p>
     </div>
-    <div class="actions">
-      <a id="download" download="poster.png" href="#">Download PNG (300 DPI)</a>
-      <button id="print" class="link" type="button">Print / Save as PDF</button>
-    </div>
-    <p class="hint">Print at 100% (disable “fit to page”). The PNG stores 300 DPI, so the physical size is exact.</p>
+
+    <section class="where">
+      <h2>Where the game data is</h2>
+      <p>Pick the folder that contains <code>HEROES2.AGG</code> (<code>HEROES2X.AGG</code> for The Price of Loyalty). The page scans the selected folder recursively, so saves in subfolders are found too.</p>
+      <ul>
+        <li>HoMM2 (GOG, Windows): <code>C:\GOG Games\HoMM2 Gold</code></li>
+        <li>HoMM2 (GOG Galaxy, Windows): <code>C:\Program Files (x86)\GOG Galaxy\Games\Heroes of Might and Magic 2 Gold</code></li>
+        <li>HoMM2 (CD, Windows): <code>C:\HEROES2</code></li>
+        <li>HoMM2 (DOSBox): the folder mounted as <code>C:</code> (e.g. <code>C:\DOSGAMES\HEROES2</code>); saves are in the <code>GAMES</code> subfolder next to <code>HEROES2.AGG</code></li>
+        <li>HoMM2 (GOG, macOS): <code>/Applications/Heroes of Might and Magic II.app/Contents/Resources</code></li>
+        <li>HoMM2 (Wine/Proton, Linux): <code>~/.wine/drive_c/HEROES2</code></li>
+        <li>fheroes2 (Windows): <code>%APPDATA%\fheroes2</code></li>
+        <li>fheroes2 (macOS): <code>~/Library/Application Support/fheroes2</code></li>
+        <li>fheroes2 (Linux): <code>~/.local/share/fheroes2</code></li>
+        <li>fheroes2 (Flatpak): <code>~/.var/app/io.github.ihhub.Fheroes2/data/fheroes2</code></li>
+      </ul>
+    </section>
+
+    <section class="printing">
+      <h2>Printing</h2>
+      <p>The PNG is written with 300 DPI metadata; the table gives the approximate paper size (the height depends on how many kingdoms and cards the save has).</p>
+      <div class="sunken-panel">
+        <table>
+          <thead><tr><th>Map</th><th>Scale</th><th>Size</th><th>Paper</th></tr></thead>
+          <tbody>
+            <tr><td>36×36</td><td>×2</td><td>198×377 mm</td><td>A3</td></tr>
+            <tr><td>72×72</td><td>×2</td><td>393×576 mm</td><td>A2</td></tr>
+            <tr><td>108×108</td><td>×2</td><td>588×733 mm</td><td>A1</td></tr>
+            <tr><td>144×144</td><td>×2</td><td>783×932 mm</td><td>A0</td></tr>
+            <tr><td>36×36</td><td>×1</td><td>99×188 mm</td><td>A5</td></tr>
+            <tr><td>72×72</td><td>×1</td><td>196×288 mm</td><td>A4</td></tr>
+            <tr><td>108×108</td><td>×1</td><td>294×367 mm</td><td>A3</td></tr>
+            <tr><td>144×144</td><td>×1</td><td>391×466 mm</td><td>A2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <p>The renderer ports parts of <a href="https://github.com/ihhub/fheroes2">fheroes2</a> (GPL-2.0).</p>
+      <p>License: <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPL-2.0</a>. Heroes of Might and Magic II is a trademark of its respective owners; this project is not affiliated with them.</p>
+    </footer>
   </div>
-
-  <section class="where">
-    <h2>Where the game data is</h2>
-    <p>Pick the folder that contains <code>HEROES2.AGG</code> (<code>HEROES2X.AGG</code> for The Price of Loyalty). The page scans the selected folder recursively, so saves in subfolders are found too.</p>
-    <ul>
-      <li>HoMM2 (GOG, Windows): <code>C:\GOG Games\HoMM2 Gold</code></li>
-      <li>HoMM2 (GOG Galaxy, Windows): <code>C:\Program Files (x86)\GOG Galaxy\Games\Heroes of Might and Magic 2 Gold</code></li>
-      <li>HoMM2 (CD, Windows): <code>C:\HEROES2</code></li>
-      <li>HoMM2 (DOSBox): the folder mounted as <code>C:</code> (e.g. <code>C:\DOSGAMES\HEROES2</code>); saves are in the <code>GAMES</code> subfolder next to <code>HEROES2.AGG</code></li>
-      <li>HoMM2 (GOG, macOS): <code>/Applications/Heroes of Might and Magic II.app/Contents/Resources</code></li>
-      <li>HoMM2 (Wine/Proton, Linux): <code>~/.wine/drive_c/HEROES2</code></li>
-      <li>fheroes2 (Windows): <code>%APPDATA%\fheroes2</code></li>
-      <li>fheroes2 (macOS): <code>~/Library/Application Support/fheroes2</code></li>
-      <li>fheroes2 (Linux): <code>~/.local/share/fheroes2</code></li>
-      <li>fheroes2 (Flatpak): <code>~/.var/app/io.github.ihhub.Fheroes2/data/fheroes2</code></li>
-    </ul>
-  </section>
-
-  <section class="printing">
-    <h2>Printing</h2>
-    <p>The PNG is written with 300 DPI metadata; the table gives the approximate paper size (the height depends on how many kingdoms and cards the save has).</p>
-    <table>
-      <thead><tr><th>Map</th><th>Scale</th><th>Size</th><th>Paper</th></tr></thead>
-      <tbody>
-        <tr><td>36×36</td><td>×2</td><td>198×377 mm</td><td>A3</td></tr>
-        <tr><td>72×72</td><td>×2</td><td>393×576 mm</td><td>A2</td></tr>
-        <tr><td>108×108</td><td>×2</td><td>588×733 mm</td><td>A1</td></tr>
-        <tr><td>144×144</td><td>×2</td><td>783×932 mm</td><td>A0</td></tr>
-        <tr><td>36×36</td><td>×1</td><td>99×188 mm</td><td>A5</td></tr>
-        <tr><td>72×72</td><td>×1</td><td>196×288 mm</td><td>A4</td></tr>
-        <tr><td>108×108</td><td>×1</td><td>294×367 mm</td><td>A3</td></tr>
-        <tr><td>144×144</td><td>×1</td><td>391×466 mm</td><td>A2</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <footer>
-    <p>The renderer ports parts of <a href="https://github.com/ihhub/fheroes2">fheroes2</a> (GPL-2.0).</p>
-    <p>License: <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPL-2.0</a>. Heroes of Might and Magic II is a trademark of its respective owners; this project is not affiliated with them.</p>
-  </footer>
-</main>
+</div>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -204,6 +214,8 @@
     refreshKingdoms();
     update();
   });
+
+  $('pickFolder').addEventListener('click', () => $('aggInput').click());
 
   $('aggInput').addEventListener('change', e => {
     agg = aggX = null;

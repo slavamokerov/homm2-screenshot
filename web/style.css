@@ -1,168 +1,133 @@
-/* homm2-screenshot — page style in the spirit of the HoMM2 interface:
-   dark wood background, beveled panels, gold headings, parchment text. */
-
-:root {
-  --bg: #14100a;
-  --wood: #2b2114;
-  --wood-light: #4a3820;
-  --wood-dark: #1c150c;
-  --gold: #e8c15a;
-  --gold-dim: #a8873c;
-  --parchment: #d9c9a3;
-  --dim: #9c8b6a;
-  --red: #b03a2e;
-}
-
-* { box-sizing: border-box; }
+/* Minimal page styles on top of 98.css (MIT, https://github.com/jdan/98.css). */
 
 body {
+  font-family: "Pixelated MS Sans Serif", monospace;
+  background: #008080; /* Win98 desktop teal */
   margin: 0;
-  padding: 24px 12px 48px;
-  background:
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, .18) 0 2px, transparent 2px 7px),
-    repeating-linear-gradient(0deg, rgba(255, 220, 150, .03) 0 1px, transparent 1px 6px),
-    var(--bg);
-  color: var(--parchment);
-  font: 15px/1.55 Georgia, "Times New Roman", serif;
+  padding: 24px 12px;
 }
 
-.card {
-  max-width: 760px;
+.app-window {
+  max-width: 780px;
   margin: 0 auto;
-  background: linear-gradient(180deg, var(--wood-light), var(--wood) 90px);
-  border: 2px solid var(--wood-dark);
-  border-radius: 4px;
-  padding: 26px 30px 30px;
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 220, 150, .28),
-    inset -1px -1px 0 rgba(0, 0, 0, .65),
-    0 0 0 2px #6b4c2a,
-    0 8px 28px rgba(0, 0, 0, .6);
 }
 
-h1 {
-  margin: 0 0 4px;
-  font-size: 1.45rem;
-  color: var(--gold);
-  text-shadow: 2px 2px 0 #000;
-  letter-spacing: .5px;
+.sub {
+  margin: 0 0 12px;
 }
 
-.sub { margin: 0 0 22px; color: var(--dim); }
-
-section { margin: 0 0 18px; }
-
-/* Wooden button (the file picker is a real control; the caption is not). */
-.btn {
-  display: inline-block;
-  padding: 9px 16px;
-  color: var(--gold);
-  background: linear-gradient(180deg, #6a4f2b, #3a2a16);
-  border: 2px solid var(--wood-dark);
-  border-radius: 4px;
-  box-shadow: inset 1px 1px 0 rgba(255, 220, 150, .35), inset -1px -1px 0 rgba(0, 0, 0, .6);
-  cursor: pointer;
-  font-weight: bold;
-  text-shadow: 1px 1px 0 #000;
+section {
+  margin: 0 0 12px;
 }
-.btn:hover { background: linear-gradient(180deg, #7c5d34, #45321a); }
-.btn:active { box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .55); }
-.btn span { font-weight: normal; opacity: .8; }
-
-.caption {
-  display: block;
-  margin: 0 0 6px;
-  color: var(--gold-dim);
-  font-size: .9rem;
-  text-shadow: 1px 1px 0 #000;
-}
-
-select, input[type="text"] {
-  background: #1a140c;
-  color: var(--parchment);
-  border: 2px solid var(--wood-dark);
-  border-radius: 3px;
-  padding: 6px 8px;
-  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .6);
-  font: inherit;
-  max-width: 100%;
-}
-select:focus, input:focus { outline: 1px solid var(--gold-dim); }
-
-.opts { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
-.opts label { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; color: var(--gold-dim); text-shadow: 1px 1px 0 #000; }
-
-button.primary {
-  display: block;
-  width: 100%;
-  margin: 10px 0 6px;
-  padding: 12px;
-  font: bold 1.05rem Georgia, serif;
-  color: #241a0c;
-  background: linear-gradient(180deg, #f0cf74, #c89b3c);
-  border: 2px solid var(--wood-dark);
-  border-radius: 4px;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .5), inset -1px -1px 0 rgba(0, 0, 0, .35), 0 0 0 2px #6b4c2a;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, .35);
-  cursor: pointer;
-}
-button.primary:hover { background: linear-gradient(180deg, #f7dc8c, #d3a748); }
-button.primary:disabled { opacity: .45; cursor: not-allowed; }
-
-.status { min-height: 1.2em; color: var(--dim); margin-top: 6px; }
-
-.info { color: var(--dim); font-size: .9rem; margin: 10px 0; }
-
-#posterBox {
-  border: 2px solid var(--wood-dark);
-  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .6), 0 0 0 2px #6b4c2a;
-  background: #0c0c10;
-  overflow: hidden;
-  max-height: 560px;
-  display: flex;
-  justify-content: center;
-}
-#preview { display: block; max-width: 100%; max-height: 556px; width: auto; image-rendering: pixelated; }
-
-.actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin: 12px 0 0; }
-.actions a, .actions button.link {
-  color: var(--gold);
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.hint { color: var(--dim); font-size: .85rem; margin: 8px 0 0; }
 
 h2 {
-  margin: 26px 0 10px;
-  font-size: 1.05rem;
-  color: var(--gold);
-  text-shadow: 1px 1px 0 #000;
-  border-bottom: 1px solid var(--gold-dim);
-  padding-bottom: 4px;
+  font-size: 12px;
+  margin: 16px 0 6px;
 }
 
-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid rgba(232, 193, 90, .18); vertical-align: top; }
-th { color: var(--gold-dim); font-weight: normal; }
-td code, p code, li code { color: var(--parchment); background: rgba(0, 0, 0, .35); padding: 0 4px; border-radius: 3px; }
+.file {
+  font-size: 11px;
+  color: #444;
+  margin-top: 4px;
+}
 
-.where p, .printing p { margin: 0 0 8px; color: var(--dim); font-size: .9rem; }
-.where ul { margin: 0; padding-left: 20px; }
-.where li { margin: 0 0 3px; font-size: .9rem; }
+.status {
+  font-size: 11px;
+  margin-top: 6px;
+}
 
-footer { margin-top: 26px; padding-top: 12px; border-top: 1px solid rgba(232, 193, 90, .25); color: var(--dim); font-size: .85rem; }
-footer a { color: var(--gold-dim); }
+.info {
+  font-size: 11px;
+  margin: 8px 0;
+}
+
+.hint {
+  font-size: 11px;
+  color: #444;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0 0;
+}
+
+#posterBox {
+  margin-top: 8px;
+}
+
+#preview {
+  display: block;
+  max-width: 100%;
+  max-height: 520px;
+  width: auto;
+  image-rendering: pixelated;
+}
+
+.where p,
+.printing p {
+  margin: 0 0 6px;
+}
+
+.where ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.where li {
+  font-size: 11px;
+}
+
+footer {
+  margin-top: 16px;
+  border-top: 1px solid #808080;
+  padding-top: 8px;
+  font-size: 11px;
+  color: #444;
+}
+
+footer p {
+  margin: 0 0 4px;
+}
+
+code {
+  background: #fff;
+  padding: 0 2px;
+}
 
 /* Print: only the poster, at its exact physical size (set by the page in mm). */
 @media print {
-  body { background: #fff; padding: 0; }
-  .card { border: none; box-shadow: none; margin: 0; padding: 0; max-width: none; background: none; }
-  h1, .sub, section, button.primary, .status, .info, .actions, .hint, footer, h2 { display: none !important; }
-  #result { display: block !important; }
-  #posterBox { border: none; box-shadow: none; max-height: none; }
-  #preview { max-height: none; max-width: none; }
+  body {
+    background: #fff;
+    padding: 0;
+  }
+  .window {
+    background: #fff;
+    box-shadow: none;
+    padding: 0;
+  }
+  .title-bar,
+  .sub,
+  section,
+  #render,
+  #pickFolder,
+  .status,
+  .info,
+  .actions,
+  .hint,
+  footer {
+    display: none !important;
+  }
+  #result {
+    display: block !important;
+  }
+  #posterBox {
+    border: none;
+    box-shadow: none;
+  }
+  #preview {
+    max-height: none;
+    max-width: none;
+  }
 }
