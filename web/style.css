@@ -133,7 +133,7 @@ code {
   padding: 0 2px;
 }
 
-/* Print: only the poster, at its exact physical size (set by the page in mm). */
+/* Print: only the poster, contain-fitted to the sheet (its width is set by the page in mm). */
 @media print {
   body {
     background: #fff;

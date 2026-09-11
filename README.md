@@ -81,8 +81,9 @@ node web/run_node.cjs <save> HEROES2.AGG HEROES2X.AGG out.png '{"fog":"auto","sc
 
 ## Printing
 
-The PNG carries 300 DPI metadata, so the physical size is exact. Approximate
-sizes (the height depends on how many kingdoms and cards the save has):
+The downloaded PNG carries 300 DPI metadata, so its physical size is exact.
+Approximate sizes (the height depends on how many kingdoms and cards the save
+has):
 
 | Map | Scale | Size | Paper |
 |---|---|---|---|
@@ -96,9 +97,10 @@ sizes (the height depends on how many kingdoms and cards the save has):
 | 144×144 | ×1 | 391×466 mm | A2 |
 | any | ×2 | taller than 1189 mm | custom — over A0 |
 
-Print at 100% (disable “fit to page”). On the web page the “Print / Save as
-PDF” button opens the print dialog with the poster at its exact size, centered
-on the sheet; the hint next to the button names the recommended paper format.
+On the web page the “Print / Save as PDF” button contain-fits the poster to the
+recommended sheet: it touches the sheet edges on the limiting side (usually the
+height) and is centered on the other (~270 DPI effective). Print at Scale 100%
+(disable “fit to page”); the hint next to the button names the paper format.
 
 ## Where the game data is
 

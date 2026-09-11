@@ -103,7 +103,7 @@
         <button id="print" type="button">Print / Save as PDF</button>
         <span id="paperHint" class="hint"></span>
       </div>
-      <p class="hint">Print at 100% (disable “fit to page”). The PNG stores 300 DPI, so the physical size is exact.</p>
+      <p class="hint">Print at Scale 100% (not “fit to page”). The poster is fitted to the sheet, filling it on one side; the downloaded PNG keeps its exact 300 DPI size.</p>
     </div>
 
     <section class="where">
@@ -125,7 +125,7 @@
 
     <section class="printing">
       <h2>Printing</h2>
-      <p>The PNG is written with 300 DPI metadata; the table gives the approximate paper size (the height depends on how many kingdoms and cards the save has).</p>
+      <p>The PNG is written with 300 DPI metadata; the table gives the recommended paper size (the height depends on how many kingdoms and cards the save has). Printing fits the poster to the sheet, filling it on one side.</p>
       <div class="sunken-panel">
         <table>
           <thead><tr><th>Map</th><th>Scale</th><th>Size</th><th>Paper</th></tr></thead>
@@ -293,7 +293,7 @@
       lastPxH = obj.pxH;
       lastPaper = paperFor(obj.pxW / 300 * 25.4, obj.pxH / 300 * 25.4);
       $('paperHint').textContent = (lastPaper ? lastPaper[0] : 'custom (over A0)') +
-        ' · portrait · 100% · margins None · no headers/footers';
+        ' · portrait · fit to sheet · margins None · no headers/footers';
       $('info').textContent = `${obj.name || 'map'} · ${obj.width}×${obj.height} · day ${obj.day}, week ${obj.week}, month ${obj.month}` +
                               ` · ${obj.castles} castles, ${obj.heroes} heroes · ${obj.pxW}×${obj.pxH} px (${(obj.pxW/300*25.4).toFixed(0)}×${(obj.pxH/300*25.4).toFixed(0)} mm at 300 DPI) · ${(obj.png/1048576).toFixed(1)} MB`;
       $('result').hidden = false;
@@ -313,10 +313,15 @@
     const sheetW = lastPaper ? lastPaper[1] : round(wmm + 0.2);
     const sheetH = lastPaper ? lastPaper[2] : round(hmm + 0.2);
     const sheet = named ? `${lastPaper[0]} portrait` : `${sheetW}mm ${sheetH}mm`;
+    // Contain-fit: the poster touches the sheet edges on the limiting side
+    // (usually the height) and is centered on the other. Floor to 0.1 mm so
+    // rounding can never push the content onto a second, empty page.
+    const fit = Math.min(sheetW / wmm, sheetH / hmm);
+    const fitW = Math.floor(wmm * fit * 10) / 10;
     // The poster is sized for print only, so the on-screen preview never changes.
     $('printPage').textContent =
       `@page { size: ${sheet}; margin: 0; }\n` +
-      `@media print { #preview { width: ${round(wmm)}mm; height: auto; } }`;
+      `@media print { #preview { width: ${fitW}mm; height: auto; } }`;
   }
 
   $('print').addEventListener('click', () => {
